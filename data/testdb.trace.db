@@ -1,0 +1,33 @@
+2024-12-24 12:46:14.036099+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+insert into user_accounts (email,first_name,last_name,password,id) values (?,?,?,?,default) [42104-232]
+2024-12-24 12:46:38.230172+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+insert into user_accounts (email,first_name,last_name,password,id) values (?,?,?,?,default) [42104-232]
+2024-12-24 12:47:47.532634+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+insert into user_accounts (email,first_name,last_name,password,id) values (?,?,?,?,default) [42104-232]
+2024-12-24 12:50:00.222568+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+insert into user_accounts (email,first_name,last_name,password,id) values (?,?,?,?,default) [42104-232]
+2024-12-24 13:07:59.626257+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+select ua1_0.id,ua1_0.email,ua1_0.first_name,ua1_0.last_name,ua1_0.password from user_accounts ua1_0 where ua1_0.id=? [42104-232]
+2024-12-24 13:09:40.603394+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+insert into user_accounts (email,first_name,last_name,password,id) values (?,?,?,?,default) [42104-232]
+2024-12-24 13:09:43.681750+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+insert into user_accounts (email,first_name,last_name,password,id) values (?,?,?,?,default) [42104-232]
+2024-12-24 13:09:52.913317+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+select ua1_0.id,ua1_0.email,ua1_0.first_name,ua1_0.last_name,ua1_0.password from user_accounts ua1_0 [42104-232]
+2024-12-24 13:12:36.994732+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+SELECT * FROM USER_ACCOUNTS [42104-232]
+2024-12-24 13:14:07.624575+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+SELECT * FROM USER_ACCOUNTS [42104-232]
+2024-12-24 13:14:08.388659+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_ACCOUNTS" not found (this database is empty); SQL statement:
+SELECT * FROM USER_ACCOUNTS [42104-232]
