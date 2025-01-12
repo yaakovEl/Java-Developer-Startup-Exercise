@@ -46,38 +46,4 @@ public class AuthController {
         // החזרת טוקן כהצלחה
         return ResponseEntity.ok(token);
     }
-    @PostMapping("/update-passwords")
-    public ResponseEntity<?> updatePasswordsToEncrypted() {
-        List<UserAccount> users = userAccountRepository.findAll();
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        for (UserAccount user : users) {
-            // בדיקה אם הסיסמה עדיין לא מוצפנת
-            if (!user.getPassword().startsWith("$2")) {
-                String encryptedPassword = passwordEncoder.encode(user.getPassword());
-                user.setPassword(encryptedPassword);
-                userAccountRepository.save(user);
-            }
-        }
-        return ResponseEntity.ok("Passwords updated successfully!");
-    }
-    @PostMapping("/fix-passwords")
-    public ResponseEntity<?> fixPasswords() {
-        List<UserAccount> users = userAccountRepository.findAll();
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        for (UserAccount user : users) {
-            if (user.getPassword().length() < 8 || user.getPassword().length() > 20) {
-                String defaultPassword = "DefaultPass123"; // סיסמה ברירת מחדל
-                String encryptedPassword = passwordEncoder.encode(defaultPassword);
-                user.setPassword(encryptedPassword);
-                userAccountRepository.save(user);
-            }
-        }
-
-        return ResponseEntity.ok("Passwords fixed successfully!");
-    }
-
-
 }

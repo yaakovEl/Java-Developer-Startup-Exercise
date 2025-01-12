@@ -14,8 +14,13 @@ public class JwtUtil {
 
     // שליפת ה-email מהטוקן
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        try {
+            return extractClaim(token, Claims::getSubject);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid JWT token");
+        }
     }
+
 
     // שליפת Claim מסוים מתוך הטוקן
     public <T> T extractClaim(String token, java.util.function.Function<Claims, T> claimsResolver) {

@@ -16,12 +16,14 @@ import org.springframework.security.web.SecurityFilterChain;
                     .csrf(csrf -> csrf.disable()) // השבתת CSRF
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**" ,"/api/users").permitAll() // גישה פתוחה לסווגר
-//                          //  .requestMatchers(HttpMethod.GET, "/api/users").permitAll() // גישה פתוחה לנתיב זה
-//                            //.requestMatchers(HttpMethod.POST, "/api/auth/update-passwords").permitAll()
+                            .requestMatchers(HttpMethod.PUT, "/api/users/**").permitAll() // הרשה גישה ל-PUT בנתיב זה
+                            .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll() // הרשה גישה ל-GET
+                            .requestMatchers(HttpMethod.POST, "/api/users").permitAll() // הרשה POST ליצירת משתמשים
+                            .requestMatchers("/api/auth/**").permitAll() // גישה פתוחה לנתיב ההתחברות
                             .requestMatchers("/h2-console/**").permitAll()
+                            .requestMatchers(HttpMethod.PUT, "/api/users/**").authenticated()
                             .anyRequest().authenticated() // כל הבקשות האחרות דורשות אימות
                     );
-
             return http.build();
         }
         @Bean

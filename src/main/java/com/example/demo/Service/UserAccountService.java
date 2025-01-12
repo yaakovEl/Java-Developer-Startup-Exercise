@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 import com.example.demo.Model.UserAccount;
 import com.example.demo.Repository.UserAccountRepository;
+import com.example.demo.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import java.util.Optional;
 
 @Service
 public class UserAccountService {
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -54,17 +57,32 @@ public class UserAccountService {
         // Return the created user with HTTP 201 status
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
+    public ResponseEntity<?> updateUser(Long id, UserAccount updatedUser, String token) {
+        // שליפת ה-email מתוך ה-JWT
+        String emailFromToken = jwtUtil.extractUsername(token);
 
-
-    public ResponseEntity<?> updateUser(Long id, UserAccount updatedUser) {
+        // שליפת המשתמש לפי ID
         Optional<UserAccount> user = userAccountRepository.findById(id);
         if (user.isPresent()) {
             UserAccount existingUser = user.get();
-            existingUser.setFirstName(updatedUser.getFirstName());
-            existingUser.setLastName(updatedUser.getLastName());
-            existingUser.setUserName(updatedUser.getUserName());
-            existingUser.setEmail(updatedUser.getEmail());
-            existingUser.setPassword(updatedUser.getPassword());
+
+            // בדיקה אם ה-email מהטוקן תואם ל-email של המשתמש
+            if (!existingUser.getEmail().equals(emailFromToken)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You can only update your own account");
+            }
+
+            // עדכון השדות
+            if (updatedUser.getFirstName() != null) {
+                existingUser.setFirstName(updatedUser.getFirstName());
+            }
+            if (updatedUser.getLastName() != null) {
+                existingUser.setLastName(updatedUser.getLastName());
+            }
+            if (updatedUser.getPassword() != null) {
+                existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+            }
+
+            // שמירה בבסיס הנתונים
             userAccountRepository.save(existingUser);
             return ResponseEntity.ok(existingUser);
         } else {

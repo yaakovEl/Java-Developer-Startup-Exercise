@@ -34,9 +34,17 @@ public class UserAccountController {
     }
     // עדכון משתמש לפי ID
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserAccount updatedUser) {
-        return userAccountService.updateUser(id, updatedUser);
+    public ResponseEntity<?> updateUser(
+            @PathVariable Long id,
+            @RequestBody UserAccount updatedUser,
+            @RequestHeader("Authorization") String token) {
+
+        // הסר את המילה "Bearer " מהטוקן
+        String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
+
+        return userAccountService.updateUser(id, updatedUser, jwtToken);
     }
+
 
     // מחיקת משתמש לפי ID
     @DeleteMapping("/{id}")
