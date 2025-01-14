@@ -13,16 +13,16 @@ import org.springframework.security.web.SecurityFilterChain;
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
-                    .csrf(csrf -> csrf.disable()) // השבתת CSRF
+                    .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> auth
-                            .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**" ,"/api/users").permitAll() // גישה פתוחה לסווגר
-                            .requestMatchers(HttpMethod.PUT, "/api/users/**").permitAll() // הרשה גישה ל-PUT בנתיב זה
-                            .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll() // הרשה גישה ל-GET
-                            .requestMatchers(HttpMethod.POST, "/api/users").permitAll() // הרשה POST ליצירת משתמשים
-                            .requestMatchers("/api/auth/**").permitAll() // גישה פתוחה לנתיב ההתחברות
+                            .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**" ,"/api/users").permitAll()
+                            .requestMatchers(HttpMethod.PUT, "/api/users/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                            .requestMatchers("/api/auth/**").permitAll()
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers(HttpMethod.PUT, "/api/users/**").authenticated()
-                            .anyRequest().authenticated() // כל הבקשות האחרות דורשות אימות
+                            .anyRequest().authenticated()
                     );
             return http.build();
         }

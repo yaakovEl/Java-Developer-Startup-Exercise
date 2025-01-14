@@ -5,7 +5,7 @@ import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "user_accounts", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email") // ייחודיות לאימייל
+        @UniqueConstraint(columnNames = "email")
 })
 public class UserAccount {
 
@@ -26,19 +26,17 @@ public class UserAccount {
     private String userName;
 
     @NotNull
-    @Email // בדיקה שהשדה הוא אימייל תקין
+    @Email
     @Size(max = 100)
-    @Column(unique = true) // מבטיח ייחודיות
+    @Column(unique = true)
     private String email;
 
     @NotNull
     @Size(min = 8, max = 200)
     private String password;
 
-    // Constructor ברירת מחדל - חובה עבור JPA
     public UserAccount() {}
 
-    // Constructor עם פרמטרים
     public UserAccount(String firstName, String lastName, String userName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,7 +45,6 @@ public class UserAccount {
         this.password = password;
     }
 
-    // Getters ו-Setters
     public Long getId() {
         return id;
     }
@@ -81,15 +78,12 @@ public class UserAccount {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }

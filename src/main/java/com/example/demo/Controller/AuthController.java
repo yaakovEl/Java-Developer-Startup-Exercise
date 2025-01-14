@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -27,23 +25,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        // בדיקה אם כתובת האימייל והסיסמה נשלחו
         if (loginRequest.getEmail() == null || loginRequest.getPassword() == null) {
             return ResponseEntity.badRequest().body("Email and password are required");
         }
 
-        // חיפוש משתמש לפי אימייל
         UserAccount user = userAccountRepository.findByEmail(loginRequest.getEmail());
-
-        // אם המשתמש לא נמצא או שהסיסמה אינה נכונה
         if (user == null || !passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         }
 
-        // יצירת טוקן JWT (אם אתה משתמש ב-JWT)
         String token = jwtUtil.generateToken(user.getEmail());
-
-        // החזרת טוקן כהצלחה
         return ResponseEntity.ok(token);
     }
 }
