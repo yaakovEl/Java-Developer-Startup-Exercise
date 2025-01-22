@@ -1,7 +1,7 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
-import com.example.demo.Model.UserAccount;
-import com.example.demo.Repository.UserAccountRepository;
+import com.example.demo.model.userAccount;
+import com.example.demo.repository.UserAccountRepository;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Email and password are required");
         }
 
-        UserAccount user = userAccountRepository.findByEmail(loginRequest.getEmail());
+        userAccount user = userAccountRepository.findByEmail(loginRequest.getEmail());
         if (user == null || !passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         }

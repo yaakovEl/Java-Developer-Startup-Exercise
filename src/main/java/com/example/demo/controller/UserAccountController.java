@@ -1,7 +1,7 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
-import com.example.demo.Model.UserAccount;
-import com.example.demo.Service.UserAccountService;
+import com.example.demo.model.userAccount;
+import com.example.demo.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,27 +14,31 @@ public class UserAccountController {
 
     @Autowired
     private UserAccountService userAccountService;
-
+    //get All users
     @GetMapping
-    public List<UserAccount> getAllUsers() {
+    public List<userAccount> getAllUsers() {
         return userAccountService.getAllUsers();
     }
-
+    //get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         return userAccountService.getUserById(id);
     }
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody UserAccount userAccount) {
-
+    public ResponseEntity<?> createUser(@RequestBody userAccount userAccount) {
         return userAccountService.createUser(userAccount);
     }
-
+    /**
+     * Updates an existing user's details based on their ID.
+     * The method expects the user ID in the path, updated user details in the request body,
+     * and a JWT token in the Authorization header for authentication.
+     **/
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(
             @PathVariable Long id,
-            @RequestBody UserAccount updatedUser,
+            @RequestBody userAccount updatedUser,
+            /* Sending a token in the Header */
             @RequestHeader("Authorization") String token) {
         String jwtToken = token.startsWith("Bearer ") ? token.substring(7) : token;
         return userAccountService.updateUser(id, updatedUser, jwtToken);

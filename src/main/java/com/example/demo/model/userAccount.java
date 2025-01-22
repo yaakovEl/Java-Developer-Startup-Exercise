@@ -1,4 +1,4 @@
-package com.example.demo.Model;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.*;
 @Table(name = "user_accounts", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
-public class UserAccount {
+public class userAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,13 +31,13 @@ public class UserAccount {
     @Column(unique = true)
     private String email;
 
-    @NotNull
-    @Size(min = 8, max = 200)
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, max = 200, message = "Password must be between 8 and 20 characters")
     private String password;
 
-    public UserAccount() {}
+    public userAccount() {}
 
-    public UserAccount(String firstName, String lastName, String userName, String email, String password) {
+    public userAccount(String firstName, String lastName, String userName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;

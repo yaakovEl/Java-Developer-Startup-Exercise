@@ -1,7 +1,7 @@
-package com.example.demo.Service;
+package com.example.demo.service;
 
-import com.example.demo.Model.UserAccount;
-import com.example.demo.Repository.UserAccountRepository;
+import com.example.demo.model.userAccount;
+import com.example.demo.repository.UserAccountRepository;
 import com.example.demo.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,12 +22,12 @@ public class UserAccountService {
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-    public List<UserAccount> getAllUsers() {
+    public List<userAccount> getAllUsers() {
         return userAccountRepository.findAll();
     }
 
     public ResponseEntity<?> getUserById(Long id) {
-        Optional<UserAccount> user = userAccountRepository.findById(id);
+        Optional<userAccount> user = userAccountRepository.findById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         } else {
@@ -35,27 +35,21 @@ public class UserAccountService {
         }
     }
 
-    public ResponseEntity<?> createUser(UserAccount userAccount) {
-        //System.out.println("Plain Password: " + userAccount.getPassword());
-        if (userAccount.getPassword().length() <= 8 || userAccount.getPassword().length() >= 20) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Password must be between 8 and 20 characters long.");
-        }
-
+    public ResponseEntity<?> createUser(userAccount userAccount) {
         String encodedPassword = passwordEncoder.encode(userAccount.getPassword());
         System.out.println("Encoded Password: " + encodedPassword);
         userAccount.setPassword(encodedPassword);
-        UserAccount savedUser = userAccountRepository.save(userAccount);
+        com.example.demo.model.userAccount savedUser = userAccountRepository.save(userAccount);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
-    public ResponseEntity<?> updateUser(Long id, UserAccount updatedUser, String token) {
+    public ResponseEntity<?> updateUser(Long id, userAccount updatedUser, String token) {
 
         String emailFromToken = jwtUtil.extractUsername(token);
-        Optional<UserAccount> user = userAccountRepository.findById(id);
+        Optional<userAccount> user = userAccountRepository.findById(id);
         if (user.isPresent()) {
-            UserAccount existingUser = user.get();
+            userAccount existingUser = user.get();
             if (!existingUser.getEmail().equals(emailFromToken)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You can only update your own account");
             }

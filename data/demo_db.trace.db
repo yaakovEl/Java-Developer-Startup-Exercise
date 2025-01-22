@@ -159,3 +159,6 @@ java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supporte
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-01-20 14:27:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "PASSWORD CHARACTER VARYING(20)": "'$2a$10$5AuBWzjPPI10abTHLXS.FO9CqBPbARLGJgpZPHt56BnCwWWD9hYCe' (60)"; SQL statement:
+INSERT INTO "PUBLIC"."USER_ACCOUNTS_COPY_3_0"("ID", "EMAIL", "FIRST_NAME", "LAST_NAME", "PASSWORD", "USER_NAME") OVERRIDING SYSTEM VALUE SELECT "ID", "EMAIL", "FIRST_NAME", "LAST_NAME", "PASSWORD", "USER_NAME" FROM "PUBLIC"."USER_ACCOUNTS" [22001-220]
